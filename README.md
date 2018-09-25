@@ -5,11 +5,15 @@ By Dimitri Belopopsky
 
 # Installation 
 
-This project requires [Maven](https://maven.apache.org/), java 8 and make.
+This project requires [Maven](https://maven.apache.org/), java 10 and make.
 
 ## Under Linux
 
-Install java and maven using the package manager (apt, dnf, ...)
++Install java and maven using the package manager (apt, dnf, ...)+
+
+Install Oracle JDK from the official website
+
+then use the ~alternatives~ command to update paths for java and javac, and also setup JAVA_HOME
 
 ## Under macOS
 

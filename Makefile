@@ -3,7 +3,7 @@
 all: run build
 
 build:
-	@mvn package 
+	@mvn compile 
 
 run:
 	@mvn exec:java -Dexec.mainClass="com.belopopsky.photoBrowser.App"
