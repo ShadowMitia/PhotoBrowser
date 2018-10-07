@@ -18,4 +18,7 @@ public class MainMenuController {
     Stage stage = (Stage) mainMenu.getScene().getWindow();
     stage.close();
   }
+
+  @FXML
+  void importPhoto(ActionEvent event) {}
 }

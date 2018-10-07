@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+
+<MenuBar fx:id="mainMenu" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.belopopsky.photoBrowser.MainMenuController">
+  <menus>
+    <Menu mnemonicParsing="false" text="File">
+      <items>
+            <MenuItem fx:id="importPhoto" mnemonicParsing="false" onAction="#importPhoto" text="Import" />
+            <MenuItem fx:id="deletePhoto" mnemonicParsing="false" text="Delete" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+        <MenuItem fx:id="quitItem" mnemonicParsing="false" onAction="#quit" text="Quit" />
+      </items>
+    </Menu>
+    <Menu mnemonicParsing="false" text="View">
+      <items>
+        <MenuItem mnemonicParsing="false" text="Photo Viewer" />
+            <MenuItem mnemonicParsing="false" text="Photo Browser" />
+            <MenuItem mnemonicParsing="false" text="Split View" />
+      </items>
+    </Menu>
+    <Menu mnemonicParsing="false" text="Help">
+      <items>
+        <MenuItem mnemonicParsing="false" text="About" />
+      </items>
+    </Menu>
+  </menus>
+</MenuBar>

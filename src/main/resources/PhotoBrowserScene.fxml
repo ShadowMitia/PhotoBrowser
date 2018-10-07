@@ -1,42 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToolBar?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.belopopsky.photoBrowser.MainMenuController">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.belopopsky.photoBrowser.App">
   <children>
-    <MenuBar fx:id="mainMenu" VBox.vgrow="NEVER">
-      <menus>
-        <Menu mnemonicParsing="false" text="File">
-          <items>
-            <MenuItem fx:id="importPhoto" mnemonicParsing="false" onAction="#quit" text="Import" />
-            <MenuItem fx:id="deletePhoto" mnemonicParsing="false" text="Delete" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem fx:id="quitItem" mnemonicParsing="false" onAction="#quit" text="Quit" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="View">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Photo Viewer" />
-                  <MenuItem mnemonicParsing="false" text="Photo Browser" />
-                  <MenuItem mnemonicParsing="false" text="Split view" />
-          </items>
-        </Menu>
-      </menus>
-    </MenuBar>
-      <BorderPane prefHeight="382.0" prefWidth="640.0">
-         <top>
-            <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <fx:include source="MainMenu.fxml" />
+            <ToolBar prefHeight="40.0" prefWidth="200.0">
                <items>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Catégories" />
                   <ToggleButton mnemonicParsing="false" text="Famille" />
@@ -46,21 +20,8 @@
                   <ToggleButton layoutX="320.0" layoutY="11.0" mnemonicParsing="false" text="Chats" />
                </items>
             </ToolBar>
-         </top>
-         <bottom>
-            <Label fx:id="statusBar" prefHeight="16.0" prefWidth="646.0" text="Status : Who am I?" BorderPane.alignment="CENTER" />
-         </bottom>
-         <center>
-            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-               <children>
-                  <ImageView fx:id="imageView" fitHeight="316.0" fitWidth="758.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../bat.jpg" />
-                     </image>
-                  </ImageView>
-               </children>
-            </VBox>
-         </center>
-      </BorderPane>
+         </children>
+      </VBox>
+      <fx:include source="AnnotatedImage.fxml" />
   </children>
 </VBox>
