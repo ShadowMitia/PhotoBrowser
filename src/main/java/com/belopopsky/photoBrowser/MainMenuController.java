@@ -17,6 +17,11 @@ public class MainMenuController {
   void quit(ActionEvent event) {
     Stage stage = (Stage) mainMenu.getScene().getWindow();
     stage.close();
+
+    System.out.println(mainMenu);
+    System.out.println(importPhoto);
+    System.out.println(deletePhoto);
+    System.out.println(quitItem);
   }
 
   @FXML
