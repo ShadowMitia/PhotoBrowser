@@ -1,7 +1,6 @@
 package com.belopopsky.photoBrowser;
 
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,21 +15,19 @@ public class App extends Application {
   /* The high level container of all the GUI elements */
   Stage stage;
 
-  FXMLLoader loader;
-
-  @FXML private AnnotatedImageController annotatedImageController;
-  @FXML private MainMenuController mainMenuController;
+  private Parent root;
 
   /* Entry point */
   @Override
   public void start(Stage stage0) throws Exception {
 
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("/PhotoBrowserScene.fxml"));
-    Parent root = loader.load();
+    FXMLLoader loader = new FXMLLoader();
+    loader.setLocation(getClass().getResource("/PhotoBrowserScene.fxml"));
 
+    root = loader.load();
     stage = stage0;
 
-    stage0.setTitle("jPhoto Browser 2018 MASTER DELUXE (jLife package)");
+    stage0.setTitle("Photo browser");
     stage0.setMinWidth(500);
     stage0.setMinHeight(500);
     stage0.setScene(new Scene(root, 500, 500));

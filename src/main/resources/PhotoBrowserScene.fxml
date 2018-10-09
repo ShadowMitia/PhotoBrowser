@@ -11,6 +11,7 @@
    <top>
       <VBox BorderPane.alignment="CENTER">
          <children>
+            <fx:include source="MainMenu.fxml" />
             <ToolBar prefHeight="0.0" prefWidth="300.0">
                <items>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Catégories" />
@@ -25,9 +26,9 @@
       </VBox>
    </top>
    <center>
-      <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="photoHolder" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <fx:include maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="0.0" prefWidth="0.0" source="AnnotatedImage.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+	   <fx:include source="AnnotatedImage.fxml" />
          </children>
       </AnchorPane>
    </center>
