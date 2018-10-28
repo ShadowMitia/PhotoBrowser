@@ -18,6 +18,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
+import javafx.geometry.Rectangle2D;
+
 
 public class AnnotatedImageController extends AnchorPane {
   @FXML private ImageView annotatedImageHolder;
@@ -26,9 +28,7 @@ public class AnnotatedImageController extends AnchorPane {
 
   @FXML private ScrollPane imagePane;
   @FXML private ScrollPane canvasPane;
-
   @FXML private AnchorPane photoHolder;
-
   @FXML private StackPane annotatedImage;
 
   Text currentText;
@@ -50,17 +50,7 @@ public class AnnotatedImageController extends AnchorPane {
 
   @FXML
   void initialize() {
-
-    Image image = annotatedImageHolder.getImage();
-
-    // canvasPane.widthProperty().addListener(e -> annotatedImageCanvas.setWidth(image.getWidth()));
-    // canvasPane.heightProperty().addListener(e ->
-    // annotatedImageCanvas.setHeight(image.getHeight()));
-
-    System.out.println("width: " + image.getWidth() + " height: " + image.getHeight());
-
-    annotatedImageCanvas.widthProperty().bind(image.widthProperty());
-    annotatedImageCanvas.heightProperty().bind(image.heightProperty());
+      
 
     graphicsContext = annotatedImageCanvas.getGraphicsContext2D();
 
@@ -97,7 +87,6 @@ public class AnnotatedImageController extends AnchorPane {
 
     annotatedImageCanvas.setOnKeyTyped(
         new EventHandler<KeyEvent>() {
-
           @Override
           public void handle(KeyEvent event) {
             if (currentText != null) {
@@ -210,7 +199,6 @@ public class AnnotatedImageController extends AnchorPane {
 
   @FXML
   void doFreeDraw(MouseEvent event) {
-
     graphicsContext.lineTo(event.getX(), event.getY());
     graphicsContext.stroke();
     graphicsContext.closePath();
@@ -219,10 +207,18 @@ public class AnnotatedImageController extends AnchorPane {
   }
 
   void setImage(Image img) {
+
+      System.out.println(img);
+      annotatedImageHolder.setImage(img);
+      System.out.println(annotatedImageHolder.getImage());
+
+    annotatedImageCanvas.widthProperty().bind(annotatedImageHolder.getImage().widthProperty());
+    annotatedImageCanvas.heightProperty().bind(annotatedImageHolder.getImage().heightProperty());
+    //photoHolder.widthProperty().bind(annotatedImageHolder.getImage().widthProperty());
+    //photoHolder.heightProperty().bind(annotatedImageHolder.getImage().heightProperty());
+
     System.out.println(annotatedImageCanvas);
     System.out.println(annotatedImageHolder);
-    photoHolder = new AnnotatedImageController();
-    annotatedImageHolder.setImage(img);
   }
 
   void initAnnotationDrawing(GraphicsContext gc) {
