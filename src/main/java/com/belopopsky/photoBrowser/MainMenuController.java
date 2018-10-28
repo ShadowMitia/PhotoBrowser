@@ -33,4 +33,17 @@ public class MainMenuController extends MenuBar {
   }
 
   void setPhotoRef(AnnotatedImageController con) {}
+    @FXML
+    void showAboutWindow(ActionEvent event) {
+        Dialog<Void> dialog = new Dialog<>();
+        dialog.setTitle("About");
+        dialog.initStyle(StageStyle.UTILITY);
+        dialog.setContentText("Made by Dimitri Belopopsky\n\nhttp://github.com/ShadowMitia/PhotoBrowser");
+        ButtonType closeButton = new ButtonType("Close", ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().add(closeButton);
+        dialog.setResultConverter(dialogButton -> { return null; });
+        dialog.show();
+    }
 }
+
+
