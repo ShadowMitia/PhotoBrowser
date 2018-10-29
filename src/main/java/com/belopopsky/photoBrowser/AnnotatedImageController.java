@@ -19,7 +19,53 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 import javafx.geometry.Rectangle2D;
+import javafx.geometry.Point2D;
 
+abstract class Annotation {
+    abstract void draw(GraphicsContext gc);
+    abstract void updateBoundingBox();
+
+    public Rectangle2D getBoundingBox() {
+        return boundingBox;
+    }
+
+    Rectangle2D boundingBox;
+}
+
+class DrawAnnotation extends Annotation {
+    ArrayList<Point2D> points;
+
+    DrawAnnotation() {
+        points = new ArrayList<Point2D>();
+        
+    }
+
+    void add(Point2D p) {
+        points.add(p);
+        updateBoundingBox();
+    }
+
+    @Override
+    void updateBoundingBox() {
+        
+    }
+
+
+    @Override
+    public void draw(GraphicsContext graphicsContext) {
+        graphicsContext.beginPath();
+        
+        for (int i = 0; i < points.size() - 1; i+=1) {
+            Point2D p = points.get(i);
+            graphicsContext.lineTo(p.getX(), p.getY());
+            graphicsContext.stroke();
+            graphicsContext.closePath();
+            graphicsContext.beginPath();
+            graphicsContext.moveTo(p.getX(), p.getY());
+            }
+            graphicsContext.closePath();
+        }
+}
 
 public class AnnotatedImageController extends AnchorPane {
   @FXML private ImageView annotatedImageHolder;
@@ -31,15 +77,15 @@ public class AnnotatedImageController extends AnchorPane {
   @FXML private AnchorPane photoHolder;
   @FXML private StackPane annotatedImage;
 
-  Text currentText;
+    Text currentText;
 
+    ArrayList<Annotation> annotations;
+
+    Annotation currentAnnotation;
+    enum  AnnotationType {TEXT, DRAW, NONE};
+    AnnotationType currentAnnotationType = AnnotationType.NONE;
+    
   Group textGroup;
-
-  Shape currentShape;
-
-  // ArrayList<AnnotationText> annotationTexts;
-
-  ArrayList<Shape> annotationDrawings;
 
   boolean isImage = true;
 
@@ -50,6 +96,10 @@ public class AnnotatedImageController extends AnchorPane {
 
   @FXML
   void initialize() {
+
+
+      annotations = new ArrayList<Annotation>();
+      
 
     graphicsContext = annotatedImageCanvas.getGraphicsContext2D();
     graphicsContext.setStroke(Color.RED);
@@ -118,11 +168,28 @@ public class AnnotatedImageController extends AnchorPane {
         flipped = true;
         canvasPane.toFront();
         textGroup.toFront();
+        redrawAnnotations();
       } else {
         flipped = false;
+        
       }
     }
   }
+
+
+    void redrawAnnotations() {
+        graphicsContext.clearRect(0, 0, canvasPane.getWidth(), canvasPane.getHeight());
+
+        for (var anno : annotations) {
+            anno.draw(graphicsContext);
+            
+        }
+
+        if (currentAnnotation != null) {
+            currentAnnotation.draw(graphicsContext);
+        }
+        
+    }
 
   @FXML
   void mouseCanvasClickHandler(MouseEvent event) {
@@ -157,53 +224,38 @@ public class AnnotatedImageController extends AnchorPane {
     }
   }
 
-  /*
-  void drawAnnotations() {
-    graphicsContext.clearRect(
-        0,
-        0,
-        annotatedImageHolder.getImage().getWidth(),
-        annotatedImageHolder.getImage().getHeight());
-
-    for (var shape : annotationDrawings) {
-      graphicsContext.beginPath();
-      graphicsContext.moveTo(shape.getPoints().get(0).getX(), shape.getPoints().get(0).getY());
-      for (int i = 1; i < shape.getPoints().size(); ++i) {
-        graphicsContext.lineTo(shape.getPoints().get(i).getX(), shape.getPoints().get(i).getY());
-        graphicsContext.stroke();
-      }
-      graphicsContext.closePath();
-    }
-
-    graphicsContext.setFill(Paint arg0)
-    if (currentText != null) {
-      graphicsContext.fillText(
-          currentText.textProperty().getValue(), currentText.getX(), currentText.getY());
-    }
-  }
-  */
-
   @FXML
   void startFreeDraw(MouseEvent event) {
-    graphicsContext.beginPath();
-    // graphicsContext.moveTo(event.getX(), event.getY());
-    // graphicsContext.stroke();
+      if (currentAnnotation == null) {
+          currentAnnotation = new DrawAnnotation();
+      } else {
+          annotations.add(currentAnnotation);
+          currentAnnotation = new DrawAnnotation();
+      }
+      if (currentAnnotation instanceof DrawAnnotation) {
+          ((DrawAnnotation)currentAnnotation).add(new Point2D(event.getX(), event.getY()));
+          redrawAnnotations();          
+      }
+      
   }
 
   @FXML
   void endFreeDraw(MouseEvent event) {
-    graphicsContext.lineTo(event.getX(), event.getY());
-    graphicsContext.stroke();
-    graphicsContext.closePath();
+      if (currentAnnotation instanceof DrawAnnotation) {
+          ((DrawAnnotation)currentAnnotation).add(new Point2D(event.getX(), event.getY()));
+          redrawAnnotations();
+      }
+      
+    
   }
 
   @FXML
   void doFreeDraw(MouseEvent event) {
-    graphicsContext.lineTo(event.getX(), event.getY());
-    graphicsContext.stroke();
-    graphicsContext.closePath();
-    graphicsContext.beginPath();
-    graphicsContext.moveTo(event.getX(), event.getY());
+      if (currentAnnotation instanceof DrawAnnotation) {
+          ((DrawAnnotation)currentAnnotation).add(new Point2D(event.getX(), event.getY()));
+          redrawAnnotations();
+      }
+      
   }
 
   void setImage(Image img) {
