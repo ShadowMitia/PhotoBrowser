@@ -45,6 +45,7 @@ public class MainMenuController extends MenuBar {
     @FXML
     void importPhoto() {
         FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + File.separator + "Pictures"));
         fileChooser.setTitle("Open Image File");
         fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
         Stage stage = (Stage) mainMenu.getScene().getWindow();
@@ -53,7 +54,6 @@ public class MainMenuController extends MenuBar {
             Image img = new Image(selectedFile.toURI().toString());
             this.app.importPhoto(img);
         }
-
     }
 
     @FXML

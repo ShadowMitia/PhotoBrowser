@@ -50,11 +50,9 @@ public class AnnotatedImageController extends AnchorPane {
 
   @FXML
   void initialize() {
-      
 
     graphicsContext = annotatedImageCanvas.getGraphicsContext2D();
-
-    initAnnotationDrawing(graphicsContext);
+    graphicsContext.setStroke(Color.RED);
 
     textGroup = new Group(new Text());
     annotatedImage.getChildren().add(textGroup);
@@ -62,6 +60,8 @@ public class AnnotatedImageController extends AnchorPane {
 
     annotatedImageCanvas.setFocusTraversable(true);
     annotatedImageCanvas.addEventFilter(MouseEvent.ANY, (e) -> annotatedImageCanvas.requestFocus());
+   
+    
 
     annotatedImage.setOnKeyPressed(
         new EventHandler<KeyEvent>() {
@@ -214,20 +214,9 @@ public class AnnotatedImageController extends AnchorPane {
 
     annotatedImageCanvas.widthProperty().bind(annotatedImageHolder.getImage().widthProperty());
     annotatedImageCanvas.heightProperty().bind(annotatedImageHolder.getImage().heightProperty());
-    //photoHolder.widthProperty().bind(annotatedImageHolder.getImage().widthProperty());
-    //photoHolder.heightProperty().bind(annotatedImageHolder.getImage().heightProperty());
 
     System.out.println(annotatedImageCanvas);
     System.out.println(annotatedImageHolder);
-  }
-
-  void initAnnotationDrawing(GraphicsContext gc) {
-    double canvasWidth = gc.getCanvas().getWidth();
-    double canvasHeight = gc.getCanvas().getHeight();
-
-    gc.setFill(Color.LIGHTGRAY);
-    gc.setStroke(Color.BLACK);
-
-    gc.fill();
+    
   }
 }
